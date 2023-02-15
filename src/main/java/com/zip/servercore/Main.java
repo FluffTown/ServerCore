@@ -230,6 +230,7 @@ public final class Main extends JavaPlugin implements Listener {
         //valid command was not run
         return false;
     }
+
     @EventHandler
     public void onPlayerPortal(PlayerPortalEvent e) {
         World fromWorld = e.getFrom().getWorld();
@@ -241,6 +242,7 @@ public final class Main extends JavaPlugin implements Listener {
             }
         }
     }
+
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event) {
         Player player = event.getPlayer();
@@ -249,6 +251,7 @@ public final class Main extends JavaPlugin implements Listener {
             player.teleport(new Location(Bukkit.getWorld("world"), -21, -22, -58));
         }
     }
+
     @EventHandler
     public void onPlayerChat(AsyncPlayerChatEvent event){
         //event.setCancelled(true);

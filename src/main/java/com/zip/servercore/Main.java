@@ -10,10 +10,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.player.AsyncPlayerChatEvent;
-import org.bukkit.event.player.PlayerJoinEvent;
-import org.bukkit.event.player.PlayerPortalEvent;
-import org.bukkit.event.player.PlayerTeleportEvent;
+import org.bukkit.event.player.*;
 import org.bukkit.event.server.ServerListPingEvent;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -260,6 +257,13 @@ public final class Main extends JavaPlugin implements Listener {
         if (!player.hasPlayedBefore()) {
             player.teleport(new Location(Bukkit.getWorld("world"), -21, -22, -58));
         }
+        CachedMetaData metaData = LuckPermsProvider.get().getPlayerAdapter(Player.class).getMetaData(event.getPlayer());
+        event.getPlayer().setPlayerListName(ChatColor.translateAlternateColorCodes('&', "&7[&f" + metaData.getPrefix() + "&f&7] &f" + event.getPlayer().getDisplayName()));
+        event.setJoinMessage(ChatColor.translateAlternateColorCodes('&', "&8[&a+&8] &a" + event.getPlayer().getName()));
+    }
+    @EventHandler
+    public void onPlayerLeave(PlayerQuitEvent event) {
+        event.setQuitMessage(ChatColor.translateAlternateColorCodes('&', "&8[&c-&8] &c" + event.getPlayer().getName()));
     }
 
     @EventHandler

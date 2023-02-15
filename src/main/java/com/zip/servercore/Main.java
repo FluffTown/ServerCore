@@ -282,7 +282,7 @@ public final class Main extends JavaPlugin implements Listener {
         LuckPerms api = LuckPermsProvider.get();
         CachedMetaData metaData = api.getPlayerAdapter(Player.class).getMetaData(event.getPlayer());
         String prefix = metaData.getPrefix();
-        String message = "&7[&f" + (prefix == null ? "&fUnknown" : prefix) + "&f&7] &f" + event.getPlayer().getDisplayName() + "&f&7 » &f" + event.getMessage();
+        String message = "&7[&f" + (prefix == null ? "&fUnknown" : prefix) + "&f&7] &f" + event.getPlayer().getDisplayName() + "&f&7 Â» &f" + event.getMessage();
         Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&', message));
         event.setCancelled(true);
     }

@@ -21,7 +21,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import java.util.Random;
 
 public final class Main extends JavaPlugin implements Listener {
-
+    //test
     @Override
     public void onEnable() {
         //load Survival world

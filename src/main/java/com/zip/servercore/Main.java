@@ -252,6 +252,5 @@ public final class Main extends JavaPlugin implements Listener {
     @EventHandler
     public void onPlayerChat(AsyncPlayerChatEvent event){
         //event.setCancelled(true);
-
     }
 }

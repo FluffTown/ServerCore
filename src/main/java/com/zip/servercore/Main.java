@@ -1,5 +1,8 @@
 package com.zip.servercore;
 
+import net.luckperms.api.LuckPerms;
+import net.luckperms.api.LuckPermsProvider;
+import net.luckperms.api.cacheddata.CachedMetaData;
 import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.command.Command;
@@ -11,6 +14,8 @@ import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerPortalEvent;
 import org.bukkit.event.player.PlayerTeleportEvent;
+import org.bukkit.event.server.ServerListPingEvent;
+import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.Random;
@@ -23,6 +28,7 @@ public final class Main extends JavaPlugin implements Listener {
         getServer().createWorld(new WorldCreator("Survival"));
         //register events
         getServer().getPluginManager().registerEvents(this, this);
+        RegisteredServiceProvider<LuckPerms> provider = Bukkit.getServicesManager().getRegistration(LuckPerms.class);
     }
 
     @Override
@@ -36,6 +42,7 @@ public final class Main extends JavaPlugin implements Listener {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         Player player = (Player) sender;
+
         //gmc command
         if (command.getName().equalsIgnoreCase("gmc")) {
             if (args.length == 0) {
@@ -52,6 +59,7 @@ public final class Main extends JavaPlugin implements Listener {
             }
             return true;
         }
+
         //gms command
         if (command.getName().equalsIgnoreCase("gms")) {
             if (args.length == 0) {
@@ -141,6 +149,7 @@ public final class Main extends JavaPlugin implements Listener {
             }
             return true;
         }
+
         //openinv command
         if (command.getName().equalsIgnoreCase("openinv")) {
             if (args.length == 0) {
@@ -157,6 +166,7 @@ public final class Main extends JavaPlugin implements Listener {
             }
             return true;
         }
+
         //openender command
         if (command.getName().equalsIgnoreCase("openender")) {
             if (args.length == 0) {
@@ -253,7 +263,23 @@ public final class Main extends JavaPlugin implements Listener {
     }
 
     @EventHandler
-    public void onPlayerChat(AsyncPlayerChatEvent event){
-        //event.setCancelled(true);
+    public void onPing(ServerListPingEvent event) {
+        Random r = new Random();
+        if (r.nextInt(0, 2) == 0) {
+            event.setMotd("");
+        } else {
+            event.setMotd("");
+        }
+
+    }
+
+    @EventHandler
+    public void onPlayerChat(AsyncPlayerChatEvent event) {
+        LuckPerms api = LuckPermsProvider.get();
+        CachedMetaData metaData = api.getPlayerAdapter(Player.class).getMetaData(event.getPlayer());
+        String prefix = metaData.getPrefix();
+        String message = "&7[&f" + (prefix == null ? "&fUnknown" : prefix) + "&f&7] &f" + event.getPlayer().getDisplayName() + "&f&7 » &f" + event.getMessage();
+        Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&', message));
+        event.setCancelled(true);
     }
 }

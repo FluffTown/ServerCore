@@ -44,3 +44,21 @@ commands:
   msg:
     description: message a player
     usage: /<command> [player]
+  kick:
+    description: kick
+    usage: /<command> [player]
+  repair:
+    description: repairs items
+    usage: /<command> [player]
+  sudo:
+    description: run command as another user
+    usage: /<command> [player]
+    permission: com.zip.sud0
+  settag:
+    description: sets a players tag
+    usage: /<command> [player]
+    permission: com.zip.tag
+  deltag:
+    description: deletes a players tag
+    usage: /<command> [player]
+    permission: com.zip.tag
